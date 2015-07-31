@@ -8,26 +8,27 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
   end
-  
+
+  #create new user
   def new
     @user = User.new
   end
-  
 
-  
+
+
   def edit
   	@user = User.find(params[:id])
   end
 
+  # search user is possible in index page
   def index
-    @msg =  params[:q] || "hello" 
+    @msg =  params[:q] || "All users" 
     if params[:q]
     temp = User.where(['name LIKE ?', "%" + params[:q] + "%"])
     @users = temp.paginate(page: params[:page])
     else
     @users = User.paginate(page: params[:page])
-    end    
-    
+    end
   end
 
   def update
